@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Galeria sin limite Polaroid Javascript</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <style type="text/css">
+        /** CSS3 Gallery Example based on (C) Andrea Giammarchi for Ajaxian */
+*{
+    padding: 0;
+    margin: 0;
+}
+html, body, ul#thumb {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+ul#thumb {
+    position: absolute;
+    list-style: none;
+    background: #f0f9ff; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #f0f9ff 0%, black 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#f0f9ff), color-stop(100%, black)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #f0f9ff 0%, black 100%); /* Chrome10+,Safari5.1+ */
+	background: radial-gradient(center, ellipse cover, #f0f9ff 0%, black 100%); /* Chrome10+,Safari5.1+ */
+}
+
+ul#thumb li {
+    position: absolute;
+    padding: 6px 6px 24px 6px;
+    background: #FFF;
+    width: 194px;
+    height: 130px;
+
+    -moz-box-shadow:1px 2px 5px rgba(111, 111, 111, 0.25);
+    -webkit-box-shadow:1px 2px 5px rgba(111, 111, 111, 0.25);
+    box-shadow: 1px 2px 5px rgba(111, 111, 111, 0.25);
+
+    -webkit-transition: all 1.5s ease-in-out; transition: all 1.5s ease-in-out;
+
+    z-index: 0;
+}
+ul#thumb li img {
+    width: 100%;
+    height: 100%;
+}
+
+ /*
+ul#thumb li:nth-child(1) {
+    margin-top: -130px;
+    margin-left: -130px;
+}
+   -moz-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg); */
+
+/*
+ul.thumb li:nth-child(2) {
+    margin-top: -120px;
+    margin-left: -10px;
+    -moz-transform: rotate(19deg);
+    -webkit-transform: rotate(19deg);
+    transform: rotate(19deg);
+
+}
+ul.thumb li:nth-child(3) {
+    margin-top: -10px;
+    margin-left: -180px;
+    -moz-transform: rotate(-10deg);
+    -webkit-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+
+}
+ul.thumb li:nth-child(4) {
+    margin-top: -50px;
+    margin-left: -80px;
+    -moz-transform: rotate(12deg);
+    -webkit-transform: rotate(12deg);
+    transform: rotate(12deg);
+
+}
+ul.thumb li:nth-child(5) {
+    margin-top: 20px;
+    margin-left: 30px;
+    -moz-transform: rotate(-20deg);
+    -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+
+} 
+
+ul#thumb li:hover{
+    z-index: 10;
+
+    width: 480px;
+    height: 322px;
+
+    top: 100px;
+    left: 400px;
+
+    -moz-box-shadow:8px 8px 24px #111;
+      -webkit-box-shadow:8px 8px 24px #111;
+      box-shadow:8px 8px 24px #111;
+
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+}*/
+
+        </style>
+    </head>
+    <body>
+        <ul id="thumb">
+
+        </ul>
+
+        <script type="text/javascript">
+
+            var caja = document.getElementById("thumb");
+            var li = caja.getElementsByTagName("li");
+            var num_img = parseInt(prompt("Cúantas imágenes quieres?"));
+
+            // creacion de li con imágenes
+            for (var n = 1; n <=num_img; n++) {
+            var new_li = document.createElement("li");
+            var new_img = document.createElement("img");    
+
+            new_li.setAttribute("id" , "new_li"+n);
+            new_li.setAttribute("onmouseover" , "imgGrande(this.id)");
+            new_li.setAttribute("onmouseout" , "imgReturn(this.id)");
+
+            document.getElementById("thumb").appendChild(new_li);
+            // asignacion de imagenes con nombre image1 a 5.jpg
+            var imageRandom = Math.floor((Math.random()*5)+1);
+            new_img.setAttribute("src","img/image"+imageRandom+".jpg");
+            document.getElementById("new_li"+n).appendChild(new_img);
+
+console.log(imageRandom);
+            }
+
+            /* var primera_vez = 0; */
+            imgPolaroid();
+
+
+            function imgPolaroid() {
+            /* 
+            var elementoLi;
+            if (primera_vez == 0){
+                elementoLi = "li[i]";
+            }else{
+                elementoLi ="li["+valorPositionLi+"]"
+            }*/
+
+            //rotacion
+                for (var i = 0; i < li.length; i++) {
+                    var varRotate = Math.floor((Math.random()*50)-20);
+
+                    li[i].style.webkitTransform = "rotate( " + varRotate + "deg)";
+                    li[i].style.msTransform="rotate("+varRotate+"deg)";
+					li[i].style.mozTransform="rotate("+varRotate+"deg)";
+					li[i].style.transform="rotate("+varRotate+"deg)";
+                }
+            // desplazamiento
+                for (var i = 0; i < li.length; i++) {
+                    var positionTop = Math.floor((Math.random()*425)+1);
+                    var positionLeft = Math.floor((Math.random()*1180)+20);
+
+                    li[i].style.top=positionTop+"px";
+                    li[i].style.left=positionLeft+"px";
+                }
+           
+            }
+
+            function imgGrande(x){
+            var caja = document.getElementById(x);
+            caja.style.zIndex="10";
+            caja.style.width="480px";
+            caja.style.height="322px";
+            caja.style.top="100px";
+            caja.style.left="400px";
+            caja.style.boxShadow="8px 8px 24px #111";
+            caja.style.webkitTransform="rotate(0deg)";
+			caja.style.msTransform="rotate(0deg)";
+			caja.style.transform="rotate(0deg)";
+
+            }
+
+            function imgReturn(id){
+                var caja = document.getElementById(id);
+                caja.style.zIndex="0";
+                caja.style.width="194px";
+                caja.style.height="130px";
+                caja.style.boxShadow="1px 2px 5px rgba(111, 111, 111, 0.25)";
+                
+                var varRotate = Math.floor((Math.random()*50)-20);
+                caja.style.webkitTransform = "rotate( " + varRotate + "deg)";
+                caja.style.msTransform="rotate("+varRotate+"deg)";
+				caja.style.transform="rotate("+varRotate+"deg)";
+
+                var positionTop = Math.floor((Math.random()*425)+1);
+                var positionLeft = Math.floor((Math.random()*1180)+20);
+
+                caja.style.top=positionTop+"px";
+                caja.style.left=positionLeft+"px";
+            }
+
+
+
+
+
+        </script>
+
+    </body>
+</html>
